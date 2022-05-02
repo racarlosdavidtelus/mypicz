@@ -3,29 +3,30 @@ import React, { Fragment, useState } from "react";
 import { toast } from 'react-toastify'
 import { useHistory } from "react-router-dom";
 import config from '../config/config';
-import Navbar from './Navbar';
+import NavbarDashboard from './NavbarDashboard';
 
-const Login = () => {
-   console.log(`${config.BACKEND}/user/login`,config)
-    const [data, setData] = useState({
-        user: '',
+const Password = () => {
+   
+    const [newpassword, setNewPassword] = useState({
         password: ''
     })
 
     const history = useHistory();
 
     const handleInputChange = (event) => {
-        setData({
-            ...data,
+        setNewPassword({
             [event.target.name]: event.target.value
         });
     }
 
     const save = (event) => {
         event.preventDefault()
-        fetch(`${config.BACKEND}/user/login`, {
-            method: "POST",
-            body: JSON.stringify(data),
+     
+        const currentUserId = JSON.parse(localStorage.getItem("user")) === null ? 1 : JSON.parse(localStorage.getItem("user")).id
+        const body = {id:currentUserId,password: newpassword.password}
+        fetch(`${config.BACKEND}/user/password`, {
+            method: "PATCH",
+            body: JSON.stringify(body),
             headers: {
                 "content-type": "application/json"
             }
@@ -35,16 +36,12 @@ const Login = () => {
         })
         .then(data => {
             if (data.error == null) {
-                //set user to localstorage
-                localStorage.setItem("user", JSON.stringify(data.msj));
-                setData({
-                    user: '',
+                setNewPassword({
                     password: '',
                 })
-                toast.success(`Welcome ${data.msj.name}`, {
+                toast.success(`Password changed`, {
                     onClose: () => {
-                        console.log("ir a upload")
-                        history.replace("/upload")
+                        history.replace("/profile")
                     }
                 })
             }else{
@@ -58,26 +55,21 @@ const Login = () => {
 
     return (
         <Fragment>
-            <Navbar></Navbar>
+            <NavbarDashboard></NavbarDashboard>
             <br></br>
             <div className="d-flex justify-content-center">
             <div className="form-group col-md-6">
            
-                <h1>Login</h1>
+                <h1>Change Password</h1>
                 <form onSubmit={save}>
-                    
+    
                     <div className="form-group col-md-8">
-                        <label htmlFor="user" className="form-label">User</label>
-                        <input type="text" name="user" id="user" onChange={handleInputChange} className="form-control" value={data.user}></input>
-                    </div>
-
-                    <div className="form-group col-md-8">
-                        <label htmlFor="password" className="form-label">Password</label>
-                        <input type="password" name="password" id="password" onChange={handleInputChange} className="form-control" value={data.password}></input>
+                        <label htmlFor="password" className="form-label">New Password</label>
+                        <input type="password" name="password" id="password" onChange={handleInputChange} className="form-control" value={newpassword.password}></input>
                     </div>
                    <br></br>
                     <div className="mb-3">
-                        <button type="submit" className="btn btn-primary">Login</button>
+                        <button type="submit" className="btn btn-primary">Update</button>
                     </div>
                  
                 </form>
@@ -88,4 +80,4 @@ const Login = () => {
     )
 }
 
-export default Login;
+export default Password;

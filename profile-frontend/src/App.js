@@ -3,23 +3,22 @@ import React from 'react'
 import { Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Home from './Home/Home';
-import Signup from './Home/Signup';
-import Login from './Home/Login';
-import Upload from './Dashboard/Upload';
+import Profile from './Dashboard/Profile';
+import Password from './Dashboard/Password';
+import Dashboard from './Dashboard/Dashboard';
 
 function App() {
   return (
     <>
         <Switch>
           {/* OUT */}
-          <Route exact path="/" component={Home} />
-          <Route exact path="/signup" component={Signup} />
-          <Route exact path="/login" component={Login} />
+          <Route exact path="/" component={Dashboard} />
+          <Route exact path="/profile" component={Profile} />
+          <Route exact path="/password" component={Password} />
           {/* IN 
           <Route exact path="/dashboard" render={() => (<Dashboard pokemons={pokemons} />)} />
           */}
-          <Route exact path="/upload" component={Upload} />
+          
           
         </Switch>
         <ToastContainer autoClose={1500} hideProgressBar />

@@ -10,16 +10,15 @@ const Navbar = () => {
     }
 
     const onDashboard = (event) => {
-        history.replace("/dashboard")
+        history.replace("/")
     }
 
-    const onMyPokemons = (event) => {
-        history.replace("/mypokemons")
+    const onChangePassword = (event) => {
+        history.replace("/password")
     }
 
     const onLogOut = (event) => {
-        localStorage.removeItem("user");
-        history.replace("/")
+        history.push("https://github.com/racarlosdavid?tab=repositories")
     }
 
     return (
@@ -34,15 +33,20 @@ const Navbar = () => {
                     <button className="btn btn-light" onClick={onProfile}><i className="bi bi-person-fill"></i>{`  `}</button>
                 </li>
                 <li className="nav-item">
-                    <button className="btn btn-light" onClick={onDashboard}>Pokemon Gallery</button>
+                    <button className="btn btn-light" onClick={onDashboard}>Gallery</button>
                 </li>
                 <li className="nav-item">
-                    <button className="btn btn-light" onClick={onMyPokemons}>My Pokemons</button>
+                    <button className="btn btn-light" onClick={onChangePassword}>Change Password</button>
                 </li>
-           
+                <li className="nav-item">
+                    <form action="https://google.com">
+                        <button type="submit" className="btn btn-light">Main Frontend</button>
+                    </form>
+                </li>
             </ul>
         </div>
-        <button className="btn btn-light" onClick={onLogOut}><i className="bi bi-x-circle"></i></button>
+        
+       
         </nav>
     )
     

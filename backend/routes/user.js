@@ -37,16 +37,15 @@ router.post('/signup', function(req, res) {
 
 router.put('/update', function(req, res) {
     console.log(req.body)
-    const {id,name,password,pokemon_trainer_nickname,region_of_origin
-        ,gender,age,email,trainer_class,url_photo}=req.body;
+    const {id,name,email,biografia}=req.body;
     try {// INSERCION DE NUEVO USUARIO EN LA BASE DE DATOS
         // verificando si existe el usuario con el id
         pool.query("SELECT * FROM user WHERE id=? ;", [id], function(err,result){
             if (err) throw err;
             if (result.length != 0) { 
                 //actualizo el registro en db
-                var sql = "UPDATE user SET name=?,password=?,pokemon_trainer_nickname=?,region_of_origin=?,gender=?,age=?,email=?,trainer_class=? WHERE id=? ;";
-                pool.query(sql, [name,password,pokemon_trainer_nickname,region_of_origin,gender,age,email,trainer_class,id], function(err,result){
+                var sql = "UPDATE user SET name=?,email=?,biografia=? WHERE id=? ;";
+                pool.query(sql, [name,email,biografia,id], function(err,result){
                     if (err) throw err;
                     if(result.length != 0){ 
                         
@@ -200,6 +199,33 @@ router.get('/getPokemons/userid/:userId', async function(req, res) {
     }
 });
 
+router.patch('/password', function(req, res) {
+    const {id,password}=req.body;
+    console.log(req.body)
+    try {
+        // verificando si existe el usuario con el id
+        pool.query("SELECT * FROM user WHERE id=? ;", [id], function(err,result){
+            if (err) throw err;
+            if (result.length != 0) { 
+                //actualizo el registro en db
+                var sql = "UPDATE user SET password=? WHERE id=? ;";
+                pool.query(sql, [password,id], function(err,result){
+                    if (err) throw err;
+                    if(result.length != 0){ 
+                        
+                    }
+                });
+                console.log("Usuario actualizado en la BASE DE DATOS")
+                res.status(201).json({msj: 'Password updated',error: null});
+            }else{
+              res.status(409).json({msj: 'The user dont exists in the database', error: true}); 
+            }
+          });
+    } catch (er) {
+        //console.log(er);
+        res.status(500).json({msj: 'error when update user info',error: er});
+    }
+});
 
 /**
  * TODO(developer): Uncomment the following lines before running the sample.
