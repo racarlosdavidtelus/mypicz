@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import config from '../config/config';
 import Navbar from '../Dashboard/NavbarDashboard';
 
 const CrearAlbum = () => {
@@ -6,8 +7,30 @@ const CrearAlbum = () => {
 
 	const submit_ = (e) => {
 		e.preventDefault();
-		console.log(name);
+		var myHeaders = new Headers();
+		myHeaders.append('Content-Type', 'application/json');
+
+		var raw = JSON.stringify({
+			id: JSON.parse(localStorage.getItem('user')).id,
+			name
+		});
+
+		var requestOptions = {
+			method: 'POST',
+			headers: myHeaders,
+			body: raw,
+			redirect: 'follow'
+		};
+
+		fetch(`${config.BACKEND}/user/postalbum`, requestOptions)
+			.then((response) => response.json())
+			.then((result) => {
+				console.log(result);
+			})
+			.catch((error) => console.log('error', error));
+			
 	};
+
 	return (
 		<div>
 			<Navbar />

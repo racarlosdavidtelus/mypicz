@@ -16,16 +16,16 @@ var corsOptions = { origin: true, optionsSuccessStatus: 200 };
 app.use(cors(corsOptions));
 
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', '*');
-  next();
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+	res.setHeader('Access-Control-Allow-Headers', '*');
+	next();
 });
 
 //Routes
-app.use('/',require('./routes/index'));
-app.use('/user',require('./routes/user'));
+app.use('/', require('./routes/index'));
+app.use('/user', require('./routes/user'));
 
-app.listen(port,()=>{
-    console.log('Server listen on port: ', port);
-}); 
+app.listen(port, () => {
+	console.log('Server listen on port: ', port);
+});

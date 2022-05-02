@@ -5,12 +5,37 @@ import config from '../config/config';
 import Navbar from '../Dashboard/NavbarDashboard';
 
 const AgregarImagen = () => {
+	const [ allalbums, setAllalbums ] = useState([]);
 	const [ album, setAlbum ] = useState('');
 	const [ user, setUser ] = useState({});
 	const [ data, setData ] = useState({
 		descripcion: '',
 		photo: {}
 	});
+
+	useEffect(() => {
+		var myHeaders = new Headers();
+		myHeaders.append('Content-Type', 'application/json');
+
+		var raw = JSON.stringify({
+			id: JSON.parse(localStorage.getItem('user')).id
+		});
+
+		var requestOptions = {
+			method: 'POST',
+			headers: myHeaders,
+			body: raw,
+			redirect: 'follow'
+		};
+
+		fetch(`${config.BACKEND}/user/getalbums`, requestOptions)
+			.then((response) => response.json())
+			.then((result) => {
+				setAllalbums(result.msj);
+				setAlbum(result.msj[0].name);
+			})
+			.catch((error) => console.log('error', error));
+	}, []);
 
 	useEffect(() => {
 		const currentUser = localStorage.getItem('user') === null ? {} : JSON.parse(localStorage.getItem('user'));
@@ -89,6 +114,11 @@ const AgregarImagen = () => {
 			.catch((error) => {
 				console.log(error);
 			});
+		setAlbum(allalbums[0].id);
+		setData({
+			descripcion: '',
+			photo: {}
+		});
 	};
 
 	const onFileUpload = (event) => {
@@ -121,12 +151,13 @@ const AgregarImagen = () => {
 									onChange={(e) => setAlbum(e.target.value)}
 									value={album}
 								>
-									<option value="1" id="select-1651464146133-0">
-										Album 1
-									</option>
-									<option value="2" id="select-1651464146133-0">
-										Album 2
-									</option>
+									{allalbums.map((e) => {
+										return (
+											<option value={parseInt(e.id)} key={e.id}>
+												{e.name}
+											</option>
+										);
+									})}
 								</select>
 							</div>
 							<br />

@@ -6,11 +6,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import Home from './Home/Home';
 import Signup from './Home/Signup';
 import Login from './Home/Login';
-import Upload from './Dashboard/Upload';
 import AgregarImagen from './Home/AgregarImagen';
 import CrearAlbum from './Home/CrearAlbum';
 import EliminarAlbum from './Home/EliminarAlbum';
 import EliminarImagen from './Home/EliminarImagen';
+import HomeUser from './Dashboard/HomeUser';
 
 function App() {
 	return (
@@ -27,7 +27,7 @@ function App() {
 				{/* IN 
           <Route exact path="/dashboard" render={() => (<Dashboard pokemons={pokemons} />)} />
           */}
-				<Route exact path="/upload" component={Upload} />
+				<Route exact path="/upload" component={HomeUser} />
 			</Switch>
 			<ToastContainer autoClose={1500} hideProgressBar />
 		</div>
