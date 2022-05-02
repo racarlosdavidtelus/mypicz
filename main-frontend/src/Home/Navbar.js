@@ -27,11 +27,6 @@ const Navbar = () => {
 							Signup
 						</a>
 					</li>
-					<li className="nav-item">
-						<a className="nav-link" href="/upload">
-							Upload
-						</a>
-					</li>
 				</ul>
 			</div>
 		</nav>
