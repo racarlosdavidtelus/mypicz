@@ -32,7 +32,7 @@ const AgregarImagen = () => {
 			.then((response) => response.json())
 			.then((result) => {
 				setAllalbums(result.msj);
-				setAlbum(result.msj[0].name);
+				setAlbum(result.msj[0].id);
 			})
 			.catch((error) => console.log('error', error));
 	}, []);

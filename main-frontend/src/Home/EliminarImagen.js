@@ -4,7 +4,7 @@ import Navbar from '../Dashboard/NavbarDashboard';
 
 const EliminarImagen = () => {
 	const [ allalbums, setAllalbums ] = useState([]);
-	const [ album, setAlbum ] = useState('1');
+	const [ album, setAlbum ] = useState('');
 	const [ allimagenes, setAllimagenes ] = useState([]);
 	const [ imagen, setImagen ] = useState('1');
 
@@ -27,7 +27,7 @@ const EliminarImagen = () => {
 			.then((response) => response.json())
 			.then((result) => {
 				setAllalbums(result.msj);
-				setAlbum(result.msj[0].name);
+				setAlbum(result.msj[0].id);
 			})
 			.catch((error) => console.log('error', error));
 	}, []);

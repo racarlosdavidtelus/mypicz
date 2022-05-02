@@ -25,12 +25,13 @@ const EliminarAlbum = () => {
 			.then((response) => response.json())
 			.then((result) => {
 				setAllalbums(result.msj);
-				setAlbum(result.msj[0].name);
+				setAlbum(result.msj[0].id);
 			})
 			.catch((error) => console.log('error', error));
 	}, []);
 	const submit_ = (e) => {
 		e.preventDefault();
+		console.log(album);
 		setAlbum(allalbums[0].id);
 	};
 	return (
