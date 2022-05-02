@@ -25,10 +25,12 @@ const CrearAlbum = () => {
 		fetch(`${config.BACKEND}/user/postalbum`, requestOptions)
 			.then((response) => response.json())
 			.then((result) => {
-				console.log(result);
+				if (result.error === null) {
+					alert('Album Creado');
+				}
 			})
 			.catch((error) => console.log('error', error));
-			
+		setName('');
 	};
 
 	return (
