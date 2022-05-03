@@ -5,7 +5,7 @@ const Navbar = () => {
 
 	const onProfile = (event) => {
 		event.preventDefault();
-		window.location.href = `https://gcp-dsu-348317.uc.r.appspot.com/?id=${JSON.parse(localStorage.getItem('user'))
+		window.location.href = `http://localhost:3001/?id=${JSON.parse(localStorage.getItem('user'))
 			.id}`;
 	};
 

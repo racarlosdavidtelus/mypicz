@@ -15,7 +15,6 @@ const Profile = () => {
     })
 
     useEffect(()=>{
-        //const paramId = parseInt(window.location.href.split('id')[1].substring(1), 10);
         const currentUserId = JSON.parse(localStorage.getItem("userId")) === null ? 25 : JSON.parse(localStorage.getItem("userId"))
         const body = {userId: currentUserId}
         fetch(`${config.CLOUD_FUNCTION_USER}`, {
