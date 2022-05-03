@@ -27,6 +27,8 @@ npm install dotenv
 # Comando para realizar el despligue de la cloud function
 gcloud functions deploy userHttp --runtime nodejs16 --trigger-http --allow-unauthenticated --security-level=secure-optional --set-env-vars MYSQL_HOST=,MYSQL_USER=,MYSQL_PASSWORD=,MYSQL_DATABASE=
 
+gcloud functions deploy albumsAndPhotosHttp --runtime nodejs16 --trigger-http --allow-unauthenticated --security-level=secure-optional --set-env-vars MYSQL_HOST=,MYSQL_USER=,MYSQL_PASSWORD=,MYSQL_DATABASE=
+
 gcloud functions add-iam-policy-binding userHttp \
  --member="allUsers" \
  --role="roles/cloudfunctions.invoker"

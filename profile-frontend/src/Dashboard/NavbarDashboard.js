@@ -4,21 +4,20 @@ const Navbar = () => {
 
     const history = useHistory();
 
-    const onProfile = (event) => {
-        event.preventDefault();
+    const onMainFrontend = () => {
+        window.location.href = "http://www.google.com";
+    }
+
+    const onProfile = () => {
         history.replace("/profile")
     }
 
-    const onDashboard = (event) => {
+    const onDashboard = () => {
         history.replace("/")
     }
 
-    const onChangePassword = (event) => {
+    const onChangePassword = () => {
         history.replace("/password")
-    }
-
-    const onLogOut = (event) => {
-        history.push("https://github.com/racarlosdavid?tab=repositories")
     }
 
     return (
@@ -30,6 +29,9 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
                 <li className="nav-item">
+                    <button className="btn btn-light" onClick={onMainFrontend}><i class="bi bi-arrow-bar-left"></i>{`  `}</button>
+                </li>
+                <li className="nav-item">
                     <button className="btn btn-light" onClick={onProfile}><i className="bi bi-person-fill"></i>{`  `}</button>
                 </li>
                 <li className="nav-item">
@@ -38,18 +40,10 @@ const Navbar = () => {
                 <li className="nav-item">
                     <button className="btn btn-light" onClick={onChangePassword}>Change Password</button>
                 </li>
-                <li className="nav-item">
-                    <form action="https://google.com">
-                        <button type="submit" className="btn btn-light">Main Frontend</button>
-                    </form>
-                </li>
             </ul>
         </div>
-        
-       
         </nav>
     )
-    
 }
 
 export default Navbar;

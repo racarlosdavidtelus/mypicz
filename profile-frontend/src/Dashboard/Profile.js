@@ -18,7 +18,7 @@ const Profile = () => {
       
         const currentUserId = JSON.parse(localStorage.getItem("user")) === null ? 1 : JSON.parse(localStorage.getItem("user")).id
         const body = {userId: currentUserId}
-        fetch(`${config.CLOUD_FUNCTION}`, {
+        fetch(`${config.CLOUD_FUNCTION_USER}`, {
             method: "POST",
             body: JSON.stringify(body),
             headers: {
