@@ -22,7 +22,7 @@ const Password = () => {
     const save = (event) => {
         event.preventDefault()
      
-        const currentUserId = JSON.parse(localStorage.getItem("user")) === null ? 1 : JSON.parse(localStorage.getItem("user")).id
+        const currentUserId = JSON.parse(localStorage.getItem("userId")) === null ? 25 : JSON.parse(localStorage.getItem("userId"))
         const body = {id:currentUserId,password: newpassword.password}
         fetch(`${config.BACKEND}/user/password`, {
             method: "PATCH",

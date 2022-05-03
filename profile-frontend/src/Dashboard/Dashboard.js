@@ -19,8 +19,14 @@ const Dashboard = () => {
     }
 
     useEffect(()=>{
-      
-        const currentUserId = JSON.parse(localStorage.getItem("user")) === null ? 20 : JSON.parse(localStorage.getItem("user")).id
+        try {
+            const paramId = parseInt(window.location.href.split('id')[1].substring(1), 10);
+            localStorage.setItem('userId', JSON.stringify(paramId));
+        } catch (error) {
+            
+        }
+        
+        const currentUserId = JSON.parse(localStorage.getItem("userId")) === null ? 25 : JSON.parse(localStorage.getItem("userId"))
         const body = {userId: currentUserId}
         fetch(`${config.CLOUD_FUNCTION_ALBUMSPHOTOS}`, {
             method: "POST",
@@ -63,7 +69,7 @@ const Dashboard = () => {
                     <div className="input-group">
                         <div className="input-group-prepend">
                             <div className="input-group">
-                                <select name="album" id="album" onChange={handleInputChangeAlbum} className="form-control">
+                                <select  id="album" onChange={handleInputChangeAlbum} className="form-control">
                                 {
                                     albums.map((al,index)=>(
                                      <option key={index}>{al.name}</option> 

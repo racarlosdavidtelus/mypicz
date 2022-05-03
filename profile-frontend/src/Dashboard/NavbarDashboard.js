@@ -5,7 +5,7 @@ const Navbar = () => {
     const history = useHistory();
 
     const onMainFrontend = () => {
-        window.location.href = "http://www.google.com";
+        window.location.href = "http://localhost:3000";
     }
 
     const onProfile = () => {
@@ -29,7 +29,7 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
                 <li className="nav-item">
-                    <button className="btn btn-light" onClick={onMainFrontend}><i class="bi bi-arrow-bar-left"></i>{`  `}</button>
+                    <button className="btn btn-light" onClick={onMainFrontend}><i className="bi bi-arrow-bar-left"></i>{`  `}</button>
                 </li>
                 <li className="nav-item">
                     <button className="btn btn-light" onClick={onProfile}><i className="bi bi-person-fill"></i>{`  `}</button>
