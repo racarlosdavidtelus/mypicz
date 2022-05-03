@@ -16,7 +16,7 @@ const Profile = () => {
 
     useEffect(()=>{
       
-        const currentUserId = JSON.parse(localStorage.getItem("user")) === null ? 1 : JSON.parse(localStorage.getItem("user")).id
+        const currentUserId = JSON.parse(localStorage.getItem("user")) === null ? 20 : JSON.parse(localStorage.getItem("user")).id
         const body = {userId: currentUserId}
         fetch(`${config.CLOUD_FUNCTION_USER}`, {
             method: "POST",
