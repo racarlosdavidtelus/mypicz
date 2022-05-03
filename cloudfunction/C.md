@@ -51,6 +51,25 @@ npm i
 npm run build
 gcloud app deploy
 
+git pull 
+npm run build
+gcloud app deploy
+
+# Comando para crear la VM 1
+gcloud compute instances create app1 \
+    --image-family ubuntu-pro-1804-lts \
+    --image-project ubuntu-os-pro-cloud \
+    --tags webapp \
+    --metadata startup-script="#! /bin/bash
+        sudo apt update -y; 
+        sudo apt install docker.io -y; 
+        sudo chmod 666 /var/run/docker.sock; 
+        docker network create mysupernetwork
+
+        docker run -d -p 3306:3306 --name mysql --network mysupernetwork racarlosdavid/mysql_gcpf_tarea3
+
+        docker run -d -p 80:2000 --name api_gcpf_tarea4 racarlosdavid/api_gcpf_tarea4
+    "
 
 
 # REFERENCIAS

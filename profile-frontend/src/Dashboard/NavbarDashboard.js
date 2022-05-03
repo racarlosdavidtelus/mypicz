@@ -1,11 +1,12 @@
 import { useHistory } from "react-router-dom";
+import config from '../config/config';
 
 const Navbar = () => {
 
     const history = useHistory();
 
     const onMainFrontend = () => {
-        window.location.href = "http://localhost:3000";
+        window.location.href = `${config.MAINFRONTEND_URL}`;
     }
 
     const onProfile = () => {
