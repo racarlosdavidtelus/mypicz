@@ -44,6 +44,15 @@ getconf LONG_BIT
 us-central1-c
 
 
+# APP engine deploy
+git clone https://github.com/racarlosdavidtelus/mypicz
+cd profile-frontend
+npm i
+npm run build
+gcloud app deploy
+
+
+
 # REFERENCIAS
 https://cloud.google.com/sql/docs/mysql/create-instance?hl=es-419#gcloud
 
