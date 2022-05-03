@@ -21,11 +21,11 @@ router.post('/signup', function(req, res) {
 					if (err) throw err;
 					if (result.length != 0) {
 						id_usuario = result.insertId;
+						var sql2 = 'INSERT into album (id_user,name) values ((select id from user where name=? ),?);';
+						pool.query(sql2, [ name, name ], function(err, result) {
+							if (err) throw err;
+						});
 					}
-				});
-				var sql2 = 'INSERT into album (id_user,name) values ((select id from `user` where name=? ),?);';
-				pool.query(sql2, [ name, name ], function(err, result) {
-					if (err) throw err;
 				});
 
 				console.log('Nuevo Usuario agregado a la BASE DE DATOS');
@@ -263,6 +263,24 @@ router.post('/postalbum', async (req, res) => {
 			if (err) throw err;
 			//actualizo el registro en db
 			res.status(201).json({ msj: result, error: null });
+		});
+	} catch (er) {
+		//console.log(er);
+		res.status(500).json({ msj: 'error when update user info', error: er });
+	}
+});
+
+router.post('/deletealbum', async (req, res) => {
+	const { id } = req.body;
+	console.log(id);
+	try {
+		// verificando si existe el usuario con el id
+		pool.query('delete from albumfoto  where id_album=? ;', [ id ], function(err, result) {
+			if (err) throw err;
+			pool.query('delete from album where id=? ;', [ id ], function(err, result) {
+				if (err) throw err;
+				res.status(201).json({ msj: result, error: null });
+			});
 		});
 	} catch (er) {
 		//console.log(er);

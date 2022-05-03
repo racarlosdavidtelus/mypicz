@@ -31,8 +31,37 @@ const EliminarAlbum = () => {
 	}, []);
 	const submit_ = (e) => {
 		e.preventDefault();
-		console.log(album);
-		setAlbum(allalbums[0].id);
+
+		let pre = allalbums[0].id;
+
+		console.log(pre, album);
+		if (pre === album) {
+			alert('No puedes borrar el album base');
+		} else {
+			var myHeaders = new Headers();
+			myHeaders.append('Content-Type', 'application/json');
+
+			var raw = JSON.stringify({
+				id: album
+			});
+
+			var requestOptions = {
+				method: 'POST',
+				headers: myHeaders,
+				body: raw,
+				redirect: 'follow'
+			};
+
+			fetch(`${config.BACKEND}/user/deletealbum`, requestOptions)
+				.then((response) => response.json())
+				.then((result) => {
+					if (result.error === null) {
+						alert('Album Eliminado');
+					}
+				})
+				.catch((error) => console.log('error', error));
+			window.location.href = '/upload';
+		}
 	};
 	return (
 		<div>
