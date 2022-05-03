@@ -329,6 +329,29 @@ router.post('/deleteimage', async (req, res) => {
 	}
 });
 
+router.post('/deleteuser', async (req, res) => {
+	const { id } = req.body;
+	try {
+		// verificando si existe el usuario con el id
+		pool.query(
+			'update user set name=?, email=?, password=?, biografia=?, url_photo=? where id=? ;',
+			[ '-', '-', '-', '-', '-', id ],
+			function(err, result) {
+				if (err) throw err;
+				if (result.length != 0) {
+					//actualizo el registro en db
+					res.status(201).json({ msj: result, error: null });
+				} else {
+					res.status(409).json({ msj: [], error: true });
+				}
+			}
+		);
+	} catch (er) {
+		//console.log(er);
+		res.status(500).json({ msj: 'error when update user info', error: er });
+	}
+});
+
 /**
  * TODO(developer): Uncomment the following lines before running the sample.
  */

@@ -20,6 +20,9 @@ const Navbar = () => {
 	const onEliminarImgen = (event) => {
 		history.replace('/eliminarimagen');
 	};
+	const onDarseDeBaja = (event) => {
+		history.replace('/darsedebaja');
+	};
 
 	const onLogOut = (event) => {
 		localStorage.removeItem('user');
@@ -65,6 +68,11 @@ const Navbar = () => {
 					<li className="nav-item">
 						<button className="btn btn-light" onClick={onEliminarImgen}>
 							Eliminar Imagen
+						</button>
+					</li>
+					<li className="nav-item">
+						<button className="btn btn-light" onClick={onDarseDeBaja}>
+							Darse de Baja
 						</button>
 					</li>
 				</ul>
