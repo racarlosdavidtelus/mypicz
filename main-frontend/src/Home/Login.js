@@ -6,7 +6,6 @@ import config from '../config/config';
 import Navbar from './Navbar';
 
 const Login = () => {
-	console.log(`${config.BACKEND}/user/login`, config);
 	const [ data, setData ] = useState({
 		user: '',
 		password: ''
@@ -43,7 +42,6 @@ const Login = () => {
 					});
 					toast.success(`Welcome ${data.msj.name}`, {
 						onClose: () => {
-							console.log('ir a upload');
 							history.replace('/upload');
 						}
 					});
