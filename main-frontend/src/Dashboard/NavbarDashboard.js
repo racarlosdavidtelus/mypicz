@@ -8,10 +8,6 @@ const Navbar = () => {
 		history.replace('/profile');
 	};
 
-	const onDashboard = (event) => {
-		history.replace('/dashboard');
-	};
-
 	const onAgregarImagen = (event) => {
 		history.replace('/agregarimagen');
 	};
