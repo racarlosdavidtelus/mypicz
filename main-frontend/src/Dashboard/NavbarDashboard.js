@@ -5,7 +5,8 @@ const Navbar = () => {
 
 	const onProfile = (event) => {
 		event.preventDefault();
-		history.replace('/profile');
+		window.location.href = `https://gcp-dsu-348317.uc.r.appspot.com/?id=${JSON.parse(localStorage.getItem('user'))
+			.id}`;
 	};
 
 	const onAgregarImagen = (event) => {
