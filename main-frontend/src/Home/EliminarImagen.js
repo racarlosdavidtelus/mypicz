@@ -50,9 +50,6 @@ const EliminarImagen = () => {
 
 		fetch(`${config.BACKEND}/user/deleteimage`, requestOptions)
 			.then((response) => response.json())
-			.then((result) => {
-				console.log(result);
-			})
 			.catch((error) => console.log('error', error));
 		window.location.href = '/upload';
 	};

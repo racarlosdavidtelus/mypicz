@@ -11,6 +11,7 @@ import CrearAlbum from './Home/CrearAlbum';
 import EliminarAlbum from './Home/EliminarAlbum';
 import EliminarImagen from './Home/EliminarImagen';
 import HomeUser from './Dashboard/HomeUser';
+import DarseDeBaja from './Home/DarseDeBaja';
 
 function App() {
 	return (
@@ -24,6 +25,7 @@ function App() {
 				<Route exact path="/crearalbum" component={CrearAlbum} />
 				<Route exact path="/eliminaralbum" component={EliminarAlbum} />
 				<Route exact path="/eliminarimagen" component={EliminarImagen} />
+				<Route exact path="/darsedebaja" component={DarseDeBaja} />
 				{/* IN 
           <Route exact path="/dashboard" render={() => (<Dashboard pokemons={pokemons} />)} />
           */}
