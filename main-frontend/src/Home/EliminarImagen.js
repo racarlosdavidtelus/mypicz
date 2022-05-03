@@ -3,10 +3,8 @@ import config from '../config/config';
 import Navbar from '../Dashboard/NavbarDashboard';
 
 const EliminarImagen = () => {
-	const [ allalbums, setAllalbums ] = useState([]);
-	const [ album, setAlbum ] = useState('');
 	const [ allimagenes, setAllimagenes ] = useState([]);
-	const [ imagen, setImagen ] = useState('1');
+	const [ imagen, setImagen ] = useState('');
 
 	useEffect(() => {
 		var myHeaders = new Headers();
@@ -23,19 +21,40 @@ const EliminarImagen = () => {
 			redirect: 'follow'
 		};
 
-		fetch(`${config.BACKEND}/user/getalbums`, requestOptions)
+		fetch(`${config.BACKEND}/user/getimages`, requestOptions)
 			.then((response) => response.json())
 			.then((result) => {
-				setAllalbums(result.msj);
-				setAlbum(result.msj[0].id);
+				setAllimagenes(result.msj);
+				setImagen(result.msj[0].id);
 			})
 			.catch((error) => console.log('error', error));
 	}, []);
 
 	const submit_ = (e) => {
 		e.preventDefault();
-		console.log(album);
-		setAlbum(allalbums[0].id);
+
+		console.log(JSON.parse(localStorage.getItem('user')).id);
+		var myHeaders = new Headers();
+		myHeaders.append('Content-Type', 'application/json');
+
+		var raw = JSON.stringify({
+			id: imagen
+		});
+
+		var requestOptions = {
+			method: 'POST',
+			headers: myHeaders,
+			body: raw,
+			redirect: 'follow'
+		};
+
+		fetch(`${config.BACKEND}/user/deleteimage`, requestOptions)
+			.then((response) => response.json())
+			.then((result) => {
+				console.log(result);
+			})
+			.catch((error) => console.log('error', error));
+		window.location.href = '/upload';
 	};
 
 	return (
@@ -47,7 +66,7 @@ const EliminarImagen = () => {
 					<form onSubmit={submit_}>
 						<div className="form-group col-md-8">
 							<label htmlFor="user" className="form-label">
-								Eliminar Imagen Album
+								La Imagen Album
 							</label>
 							<select
 								className="form-control"
@@ -56,26 +75,15 @@ const EliminarImagen = () => {
 								onChange={(e) => setImagen(e.target.value)}
 								value={imagen}
 							>
-								<option value="1" id="select-1651464146133-0">
-									Imagen 1
-								</option>
-							</select>
-						</div>
-						<br />
-						<div className="form-group col-md-8">
-							<label htmlFor="user" className="form-label">
-								Del Album
-							</label>
-							<select
-								className="form-control"
-								name="select-1651464146133"
-								id="select-1651464146133"
-								onChange={(e) => setAlbum(e.target.value)}
-								value={album}
-							>
-								<option value="1" id="select-1651464146133-0">
-									Album 1
-								</option>
+								{allimagenes.length === 0 ? null : (
+									allimagenes.map((e) => {
+										return (
+											<option value={parseInt(e.id)} key={e.id}>
+												{e.descripcion}
+											</option>
+										);
+									})
+								)}
 							</select>
 						</div>
 						<br />
