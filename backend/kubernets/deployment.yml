@@ -19,12 +19,7 @@ spec:
           image: rauqoz/pbackgcp:lastest
           env:
           - name: GOOGLE_APPLICATION_CREDENTIALS
-            valueFrom:
-              secretKeyRef:
-                name: credentials
-                key: gcp-dsu.json
-                optional: false # same as default; "mysecret" must exist
-                                # and include a key named "username"
+            value: /secrets/gcp-dsu.json
           - name: MYSQL_HOST 
             value: 
           - name: MYSQL_USER 
@@ -33,8 +28,16 @@ spec:
             value: 
           - name: MYSQL_DATABASE 
             value: 
+          volumeMounts:
+          - name: service-account-credentials
+            mountPath: /secrets
+            readOnly: true
           ports:
             - containerPort: 2000
+      volumes:
+        - name: service-account-credentials
+          secret:
+            secretName: credentials
 ---
 apiVersion: v1
 kind: Service
