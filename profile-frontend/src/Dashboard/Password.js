@@ -24,7 +24,8 @@ const Password = () => {
      
         const currentUserId = JSON.parse(localStorage.getItem("userId")) === null ? 25 : JSON.parse(localStorage.getItem("userId"))
         const body = {id:currentUserId,password: newpassword.password}
-        fetch(`${config.BACKEND}/user/password`, {
+        //fetch(`${config.BACKEND}/user/password`, {
+        fetch(`/user/password`, {    
             method: "PATCH",
             body: JSON.stringify(body),
             headers: {

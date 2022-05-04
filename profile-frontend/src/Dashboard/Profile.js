@@ -66,7 +66,8 @@ const Profile = () => {
             email: data.email,
             biografia: data.biografia
         }
-        fetch(`${config.BACKEND}/user/update`, {
+        //fetch(`${config.BACKEND}/user/update`, {
+        fetch(`/user/update`, {
             method: "PUT",
             body: JSON.stringify(body),
             headers: {
