@@ -77,6 +77,87 @@ functions.http('albumsAndPhotosHttp',function(req, res) {
   }}
 });
 
+functions.http('password',function(req, res) {
+  const { id, password } = req.body;
+  
+  res.set('Access-Control-Allow-Origin', '*');
+  res.set('Access-Control-Allow-Credentials', 'true');
+  res.set("Content-Type", "application/json")
+  if (req.method === 'OPTIONS') {
+    // Send response to OPTIONS requests
+    res.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.set('Access-Control-Allow-Headers', '*');
+    //res.set("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+    res.set('Access-Control-Max-Age', '3600');
+    res.status(204).send('');
+  } else {
+   
+  
+    try {
+      // verificando si existe el usuario con el id
+      pool.query('SELECT * FROM user WHERE id=? ;', [ id ], function(err, result) {
+        if (err) throw err;
+        if (result.length != 0) {
+          //actualizo el registro en db
+          var sql = 'UPDATE user SET password=? WHERE id=? ;';
+          pool.query(sql, [ password, id ], function(err, result) {
+            if (err) throw err;
+            if (result.length != 0) {
+            }
+          });
+          console.log('Usuario actualizado en la BASE DE DATOS');
+          res.status(201).json({ msj: 'Password updated', error: null });
+        } else {
+          res.status(409).json({ msj: 'The user dont exists in the database', error: true });
+        }
+      });
+    } catch (er) {
+      //console.log(er);
+      res.status(500).json({ msj: 'error when update user info', error: er });
+    }
+}
+});
+
+functions.http('update',function(req, res) {
+  const { id, name, email, biografia } = req.body;
+  
+  res.set('Access-Control-Allow-Origin', '*');
+  res.set('Access-Control-Allow-Credentials', 'true');
+  res.set("Content-Type", "application/json")
+  if (req.method === 'OPTIONS') {
+    // Send response to OPTIONS requests
+    res.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.set('Access-Control-Allow-Headers', '*');
+    //res.set("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+    res.set('Access-Control-Max-Age', '3600');
+    res.status(204).send('');
+  } else {
+    try {
+      // INSERCION DE NUEVO USUARIO EN LA BASE DE DATOS
+      // verificando si existe el usuario con el id
+      pool.query('SELECT * FROM user WHERE id=? ;', [ id ], function(err, result) {
+        if (err) throw err;
+        if (result.length != 0) {
+          //actualizo el registro en db
+          var sql = 'UPDATE user SET name=?,email=?,biografia=? WHERE id=? ;';
+          pool.query(sql, [ name, email, biografia, id ], function(err, result) {
+            if (err) throw err;
+            if (result.length != 0) {
+            }
+          });
+          console.log('Usuario actualizado en la BASE DE DATOS');
+          res.status(201).json({ msj: 'User info updated', error: null });
+        } else {
+          res.status(409).json({ msj: 'The user dont exists in the database', error: true });
+        }
+      });
+    } catch (er) {
+      //console.log(er);
+      res.status(500).json({ msj: 'error when update user info', error: er });
+    }
+}
+});
+
 functions.http('helloHttp', (req, res) => {
   res.send(`Hello !`);
 });

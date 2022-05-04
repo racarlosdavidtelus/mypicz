@@ -67,7 +67,7 @@ const Profile = () => {
             biografia: data.biografia
         }
         //fetch(`${config.BACKEND}/user/update`, {
-        fetch(`/user/update`, {
+        fetch(`${config.CLOUD_FUNCTION_UPDATE}`, {
             method: "PUT",
             body: JSON.stringify(body),
             headers: {

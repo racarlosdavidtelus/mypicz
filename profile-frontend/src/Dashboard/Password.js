@@ -25,7 +25,7 @@ const Password = () => {
         const currentUserId = JSON.parse(localStorage.getItem("userId")) === null ? 25 : JSON.parse(localStorage.getItem("userId"))
         const body = {id:currentUserId,password: newpassword.password}
         //fetch(`${config.BACKEND}/user/password`, {
-        fetch(`/user/password`, {    
+        fetch(`${config.CLOUD_FUNCTION_PASSWORD}`, {    
             method: "PATCH",
             body: JSON.stringify(body),
             headers: {
