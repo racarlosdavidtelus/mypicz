@@ -85,7 +85,7 @@ functions.http('password',function(req, res) {
   res.set("Content-Type", "application/json")
   if (req.method === 'OPTIONS') {
     // Send response to OPTIONS requests
-    res.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH');
     res.set('Access-Control-Allow-Headers', '*');
     //res.set("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
     res.set('Access-Control-Max-Age', '3600');
