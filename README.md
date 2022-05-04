@@ -72,9 +72,65 @@ git pull
 npm run build
 gcloud app deploy
 
+# Crear Cluster
+    Crear -> Acceso a la linea de comandos
+    gcloud container clusters get-credentials <cluster> --zone <zona> --project <proyecto>
+# Crear deployment a base del yml
+    kubectl apply backend/kubernets/deployment.yml
+# Crear VM's
+    gcloud compute instances create vmfrontgcp1 \
+    --image-family ubuntu-pro-1804-lts \
+    --image-project ubuntu-os-pro-cloud \
+    --tags rauqozgcp \
+    --metadata startup-script="#! /bin/bash
+        sudo apt update -y; 
+        sudo apt install docker.io -y; 
+        sudo chmod 666 /var/run/docker.sock;
 
+        docker run -d -p 80:3000 --name pfrontgcp <imagen de docker>
+    "
+    gcloud compute instances create vmfrontgcp2 \
+    --image-family ubuntu-pro-1804-lts \
+    --image-project ubuntu-os-pro-cloud \
+    --tags rauqozgcp \
+    --metadata startup-script="#! /bin/bash
+        sudo apt update -y; 
+        sudo apt install docker.io -y; 
+        sudo chmod 666 /var/run/docker.sock;
 
+        docker run -d -p 80:3000 --name pfrontgcp <imagen de docker>
+    "
 
+    gcloud compute instances create vmfrontgcp3 \
+    --image-family ubuntu-pro-1804-lts \
+    --image-project ubuntu-os-pro-cloud \
+    --tags rauqozgcp \
+    --metadata startup-script="#! /bin/bash
+        sudo apt update -y; 
+        sudo apt install docker.io -y; 
+        sudo chmod 666 /var/run/docker.sock;
+
+        docker run -d -p 80:3000 --name pfrontgcp <imagen de docker>
+    "
+# Crear regla de firewall
+    gcloud compute firewall-rules create rauqozfw \
+    --target-tags rauqozgcp \
+    --allow tcp:80
+# Crear LoadBalancer
+    gcloud compute addresses create rauqozlb
+# Agregando un health-check
+    gcloud compute http-health-checks create rauqozhc
+# Creacion de un target pool con el health check
+    gcloud compute target-pools create rauqoztp \
+    --http-health-check rauqozhc
+# Agregar las instancias al target pool
+    gcloud compute target-pools add-instances rauqoztp \
+    --instances vmfrontgcp1,vmfrontgcp2,vmfrontgcp3
+# Agregando una regla de entrada
+    gcloud compute forwarding-rules create rauqozre \
+    --ports 80 \
+    --address rauqozlb \
+    --target-pool rauqoztp
 
 
 
