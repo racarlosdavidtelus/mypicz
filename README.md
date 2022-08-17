@@ -4,7 +4,7 @@
 ![Alt text](Img/gcp-project.png)
 
 ## Registro 
-Para registrarse en el sistema debe llenar los campos necesarios para darse de alta en la plataforma.
+Para registrarse en el sistema debe llenar los campos necesarios para darse de alta en la plataforma :).
 ![Alt text](Img/signin.png)
 
 ## Perfil del usuario
